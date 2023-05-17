@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+
+    <script>
+    //console.log({{ question }})
+    //onClick="handleRedirect('{{_id}}')"
+    </script>
+
+    <form action="/comments/all" method="get">
+        {{#each question}}
+        <input type="hidden" id="question_id" name="question_id" value="{{_id}}">
+        <button type="submit">
+            {{question}}
+        </button>
+        <br>
+        {{/each}}
+    </form>
+
+    <script>
+        function handleRedirect(questionId) {
+            console.log("Button ID:", questionId);
+            window.location.href = "/users/all";
+        }
+    </script>
+</body>
+
+</html>
