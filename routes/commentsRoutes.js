@@ -5,7 +5,7 @@ var commentsController = require("../controllers/commentsController.js");
 /*
  * GET
  */
-router.get("/all", commentsController.list);
+router.get("/all/:id", commentsController.list);
 
 /*
  * GET
