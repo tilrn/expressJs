@@ -4,10 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var PORT = 3001;
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require("./routes/usersRoutes");
+var questionsRouter = require("./routes/questionsRoutes");
+var commentsRouter = require("./routes/commentsRoutes");
+
 
 var app = express();
+
+var session = require("express-session");
+app.use(session({
+  secret: "work hard",
+  resave: true,
+  saveUninitialized: false
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +27,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/users", usersRouter);
+app.use("/questions", questionsRouter);
+app.use("/comments", commentsRouter);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+
 
 
 
@@ -30,17 +42,11 @@ var mongoDB = "mongodb+srv://admin:admin@cluster0.infym86.mongodb.net/stackOverf
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
-var session = require("express-session");
-app.use(session({
-  secret: "work hard",
-  resave: true,
-  saveUninitialized: false
-}));
+
 
 db.on("error", console.error.bind(console, "mongoDB connection is pupšit"));
 
-var usersRouter = require("./routes/userRoutes");
-app.use("/users", usersRouter);
+
 
 // error handler
 app.use(function (err, req, res, next) {
