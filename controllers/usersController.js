@@ -70,7 +70,7 @@ module.exports = {
                 });
             }
             //return res.render("users/login");
-            return res.status(201).json(user);
+            return res.render("users/login");
         });
 
     },
@@ -144,7 +144,7 @@ module.exports = {
                 console.log(user);
 
                 req.session.userId = user._id;
-                return res.redirect("profile");
+                return res.redirect("users/profile", user);
             }
         })
     },
